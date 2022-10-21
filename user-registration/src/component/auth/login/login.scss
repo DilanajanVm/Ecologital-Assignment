@@ -2,7 +2,7 @@
 
 
 .login {
-  background-image: url('../../../assets/images/login-bg.jpg');
+
   object-fit: contain;
   background-size: cover;
   width: 100%;
@@ -59,7 +59,7 @@
       text-align: center;
     }
     .lbl-registerNow{
-      color: #515151 !important;
+      color: #2563eb !important;
       text-decoration: none;
     }
     .lbl-registerNow:hover{
@@ -70,7 +70,13 @@
   }
 }
 
+.userLogin{
+  background-image: url('../../../assets/images/login-bg.jpg');
+}
 
+.adminLogin{
+  background-image: url('../../../assets/images/registration-bg.jpg');
+}
 
 
 @media (max-width: 1025px){
