@@ -1,0 +1,27 @@
+
+
+.dashboard{
+
+  .tbl-status-btn {
+    background:#dcfce7;
+    border: 1px solid #15803d;
+    border-radius:50%!important;
+    height: 36px!important;
+    width: 36px!important;
+    color: #15803d;
+    margin-right: 6px;
+
+    svg{
+      position: absolute;
+      margin-bottom: 5px;
+      bottom: 11px;
+      left: 27px;
+    }
+
+    &:hover {
+      background:#15803d;
+      border: 1px solid #15803d;
+    }
+  }
+
+}
