@@ -6,6 +6,8 @@ import {mobileNumberInputValidation, passwordValidator, emailRegex} from "../../
 import {Link} from "react-router-dom";
 import * as commonFun from "../../../utilty/commonFun";
 import "react-toastify/dist/ReactToastify.css";
+import axios from 'axios'
+
 
 class Registration extends React.Component {
 
@@ -48,7 +50,7 @@ class Registration extends React.Component {
                                     this.registerUser();
     };
 
-    registerUser = () => {
+    registerUser = async () => {
         let {name, email, password, mobileNumber} = this.state;
         let obj = {
             userName: name,
@@ -56,7 +58,24 @@ class Registration extends React.Component {
             mobile: mobileNumber,
             password: password,
         };
-        console.log(obj);
+
+        await axios.post('http://localhost:3001/register', obj).then(res => {
+            console.log(res)
+            if (res.status === 200) {
+                commonFun.notifyMessage('Your Account Creation Successful!', 1);
+                this.setState({
+                    userName: '',
+                    email: '',
+                    mobile: '',
+                    password: '',
+                    confirmPassword: '',
+                    mobileNumberEnter: ''
+                })
+                window.location.href = '/login'
+            }
+        })
+
+
     };
 
     render() {

@@ -2,6 +2,7 @@ import React from "react";
 import {Button, Col, Container, Form, FormGroup, Input, Label, Row} from "reactstrap";
 import './login.scss'
 import * as commonFun from "../../../utilty/commonFun";
+import axios from "axios";
 
 
 class AdminLogin extends React.Component {
@@ -23,16 +24,28 @@ class AdminLogin extends React.Component {
             password.trim() === '' ? commonFun.notifyMessage('Please enter your password', 0) :
                 this.Login();
     };
-    Login = () => {
+    Login = async () => {
         let {userName, password} = this.state;
         let obj = {
             userName: userName,
             password: password,
             userType: 'ADMIN'
         };
+//admin-login
+        await axios.post(`http://localhost:3001/adminlogin`, obj).then(res => {
+
+            if (res.status === 200) {
+                console.log(res.data)
+                if (res.data.errorCode ===105){
+                    commonFun.notifyMessage(res.data.message,0)
+                }else{
+                    window.location.href='/admin'
+                }
+            }
+        })
 
         localStorage.setItem('UserType', 'ADMIN');
-        window.location.href = '/admin';
+
     };
 
     render() {
