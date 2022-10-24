@@ -5,6 +5,7 @@ import {Icon} from "@iconify/react";
 import {Link} from "react-router-dom";
 import * as commonFun from "../../../utilty/commonFun";
 import {emailRegex} from "../../../utilty/validation";
+import axios from "axios";
 
 
 class UserLogin extends React.Component {
@@ -28,14 +29,34 @@ class UserLogin extends React.Component {
                 password.trim() === '' ? commonFun.notifyMessage('Please enter your password', 0) :
                     this.Login();
     };
-    Login = () => {
+
+
+    Login = async () => {
         let {email, password} = this.state;
         let obj = {
             email: email,
             password: password,
             userType: 'USER'
         };
-        localStorage.setItem('UserType','USER');
+//admin-login
+        await axios.post(`http://localhost:3001/userlogin`, obj).then(res => {
+
+            if (res.status === 200) {
+                console.log(res.data)
+                if (res.data.errorCode === 105) {
+                    commonFun.notifyMessage(res.data.message, 0)
+                } else {
+                    console.log(res.data.message, res.data.code);
+                    let type = res.data.code;
+
+                    // type === 0 ? commonFun.notifyMessage(res.data.message, 0) :null;
+                    //  window.location.href='/admin'
+                }
+            }
+        })
+
+        localStorage.setItem('UserType', 'ADMIN');
+
     };
 
 
